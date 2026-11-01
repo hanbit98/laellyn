@@ -6,7 +6,9 @@
     "reward_goal": 20,
     "reward_item": "아이브(IVE) 새 앨범 포토카드 세트 또는 소원권 1장 🎁",
     "week_start_date": "2026-10-26",
-    "auto_week_date": false
+    "auto_week_date": false,
+    "sheet_prefix": "라엘",
+    "preferred_tab": "자동 (이번 주 또는 최신 YYMMDD)"
   },
   "ellyn": {
     "weekly_goal": "이번 주 영어 단어 시험 100점 맞기! 수학 연산 밀리지 않기 🌟",
@@ -15,7 +17,9 @@
     "reward_goal": 20,
     "reward_item": "주말 맛있는 디저트 & 보드게임 소원권 1장 🍰",
     "week_start_date": "2026-10-26",
-    "auto_week_date": false
+    "auto_week_date": false,
+    "sheet_prefix": "엘린",
+    "preferred_tab": "자동 (이번 주 또는 최신 YYMMDD)"
   },
   "admin": {
     "calendar_url": "https://calendar.google.com/calendar/embed?src=ko.south_korea%23holiday%40group.v.calendar.google.com&ctz=Asia%2FSeoul&mode=WEEK"
@@ -29,5 +33,6 @@
       "image_path": "",
       "date": "2026-11-01"
     }
-  ]
+  ],
+  "timetable_sheet_url": "https://docs.google.com/spreadsheets/d/여기에_구글시트_주소를_붙여넣으세요/edit"
 }

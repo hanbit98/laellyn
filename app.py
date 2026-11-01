@@ -9,13 +9,11 @@ from portal_data import (
     load_homework,
     save_homework,
     load_timetable,
-    render_timetable_html,
+    render_timetable_section,
     HISTORY_FILE
 )
 
 st.set_page_config(page_title="Laellyn Learning Portal", page_icon="🏰", layout="wide")
-
-# 모든 페이지 공통: 로그인/쿠키 점검 및 좌측 사이드바('🏠 홈' 메뉴 + 하단 '로그아웃' 버튼) 렌더링
 check_auth_and_render_sidebar()
 
 cfg = load_config()
@@ -23,7 +21,6 @@ hw_df = load_homework()
 tt_df = load_timetable()
 role = st.session_state['role']
 
-# 상단 헤더
 if role == 'lael':
     st.markdown("<h1>🎀 안녕, 보석같은 라엘! 오늘의 학습 대시보드</h1>", unsafe_allow_html=True)
 elif role == 'ellyn':
@@ -74,9 +71,9 @@ if role in ['lael', 'ellyn']:
 
     st.markdown("---")
 
-    # 주간 고정 시간표 (Timetable Grid - 조회 전용)
-    st.subheader(f"🗓️ {st.session_state['user_name']}이의 주간 시간표")
-    render_timetable_html(role, cfg, tt_df)
+    # 구글 시트 연동 시간표 (자동으로 라엘YYMMDD / 엘린YYMMDD 탭 표시)
+    st.subheader(f"🗓️ {st.session_state['user_name']}이의 이번 주 시간표")
+    render_timetable_section(role, cfg, tt_df, allow_tab_picker=True, key_suffix="home")
 
     st.markdown("---")
 
@@ -124,12 +121,12 @@ elif role == 'admin':
                     st.rerun()
 
     st.markdown("---")
-    st.subheader("🗓️ 라엘 & 엘린 주간 시간표 미리보기 (수정은 좌측 '📅 주간 계획표' 메뉴에서 가능)")
+    st.subheader("🗓️ 라엘 & 엘린 구글 시트 시간표 (라엘YYMMDD / 엘린YYMMDD 자동 연동)")
     t_ellyn, t_lael = st.tabs(["🌻 엘린이 시간표", "🎀 라엘이 시간표"])
     with t_ellyn:
-        render_timetable_html("ellyn", cfg, tt_df)
+        render_timetable_section("ellyn", cfg, tt_df, allow_tab_picker=True, key_suffix="admin_e")
     with t_lael:
-        render_timetable_html("lael", cfg, tt_df)
+        render_timetable_section("lael", cfg, tt_df, allow_tab_picker=True, key_suffix="admin_l")
 
     st.markdown("---")
     st.subheader("📝 최근 단어 시험 응시 기록")
@@ -140,8 +137,12 @@ elif role == 'admin':
         st.info("아직 응시한 단어 시험 기록이 없습니다. 아이들이 단어 시험을 완료하면 이곳에 자동 기록됩니다.")
 
     st.markdown("---")
-    with st.expander("⚙️ 주간 목표 & 구글 캘린더 URL 설정 (클릭하여 열기)", expanded=False):
+    with st.expander("⚙️ 구글 스프레드시트 시간표 주소 & 구글 캘린더 URL 설정 (클릭하여 열기)", expanded=True):
         with st.form("admin_config_form"):
+            st.markdown("#### 📊 주간 시간표 구글 스프레드시트 연동")
+            st.caption("구글 시트를 '링크가 있는 모든 사용자(뷰어)'로 공유한 뒤, 아래에 시트 주소(URL)를 붙여넣으시면 매주 `라엘YYMMDD`, `엘린YYMMDD` 탭을 자동으로 읽어옵니다!")
+            sheet_url_input = st.text_input("시간표 구글 스프레드시트 주소 (URL)", value=cfg.get('timetable_sheet_url', ''))
+
             st.markdown("#### 🎀 라엘 설정")
             lael_goal = st.text_input("라엘 이번 주 목표", value=cfg['lael'].get('weekly_goal', ''))
             lael_cal = st.text_input("라엘 구글 캘린더 Embed URL (src 주소)", value=cfg['lael'].get('calendar_url', ''))
@@ -155,7 +156,8 @@ elif role == 'admin':
             st.markdown("#### 👑 가족 마스터 캘린더 설정")
             admin_cal = st.text_input("아빠/가족 통합 구글 캘린더 Embed URL", value=cfg['admin'].get('calendar_url', ''))
 
-            if st.form_submit_button("💾 설정 저장하기", use_container_width=True):
+            if st.form_submit_button("💾 설정 저장하기", type="primary", use_container_width=True):
+                cfg['timetable_sheet_url'] = sheet_url_input.strip()
                 cfg['lael']['weekly_goal'] = lael_goal
                 cfg['lael']['calendar_url'] = lael_cal
                 cfg['lael']['reward_item'] = lael_reward
@@ -164,6 +166,7 @@ elif role == 'admin':
                 cfg['ellyn']['reward_item'] = ellyn_reward
                 cfg['admin']['calendar_url'] = admin_cal
                 save_config(cfg)
+                st.cache_data.clear()
                 st.success("설정이 성공적으로 저장되었습니다!")
                 st.rerun()
 
