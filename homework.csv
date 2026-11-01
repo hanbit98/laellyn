@@ -1,0 +1,7 @@
+﻿id,user,category,task,due_date,done
+1,lael,수학학원,오답노트 5문제 정리 및 워크북 p.42~45 풀기,2026-11-02,False
+2,lael,영어학원,Hackers APEX VOCA Day 15 암기 및 에세이 초안 작성,2026-11-02,False
+3,lael,학교/기타,독서록 1편 작성하기,2026-11-04,True
+4,ellyn,수학학원,연산 프린트 3장 풀고 채점하기,2026-11-02,False
+5,ellyn,영어학원,단어장 Lesson 01 시험 연습 및 리딩북 1챕터 읽기,2026-11-02,False
+6,ellyn,학교/기타,수행평가 준비물 챙기기,2026-11-03,True

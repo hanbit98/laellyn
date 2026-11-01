@@ -1,0 +1,29 @@
+{
+  "lael": {
+    "weekly_goal": "단어 시험 Day 15까지 완벽 마스터하기! 주말에 아빠랑 보드게임(스플렌더) 한 판 🎲",
+    "calendar_url": "https://calendar.google.com/calendar/embed?src=ko.south_korea%23holiday%40group.v.calendar.google.com&ctz=Asia%2FSeoul&mode=WEEK",
+    "stickers": 12,
+    "reward_goal": 20,
+    "reward_item": "아이브(IVE) 새 앨범 포토카드 세트 또는 소원권 1장 🎁"
+  },
+  "ellyn": {
+    "weekly_goal": "이번 주 영어 단어 시험 100점 맞기! 수학 연산 밀리지 않기 🌟",
+    "calendar_url": "https://calendar.google.com/calendar/embed?src=ko.south_korea%23holiday%40group.v.calendar.google.com&ctz=Asia%2FSeoul&mode=WEEK",
+    "stickers": 15,
+    "reward_goal": 20,
+    "reward_item": "주말 맛있는 디저트 & 보드게임 소원권 1장 🍰"
+  },
+  "admin": {
+    "calendar_url": "https://calendar.google.com/calendar/embed?src=ko.south_korea%23holiday%40group.v.calendar.google.com&ctz=Asia%2FSeoul&mode=WEEK"
+  },
+  "vitamins": [
+    {
+      "id": 1,
+      "target": "전체",
+      "title": "🌟 오늘도 화이팅! 아빠의 응원 메시지",
+      "caption": "라엘이, 엘린이 오늘 학원 숙제랑 단어 시험 끝내고 주말에 신나게 놀자! 화이팅 ❤️",
+      "image_path": "",
+      "date": "2026-11-01"
+    }
+  ]
+}
