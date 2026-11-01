@@ -6,9 +6,9 @@ import os
 import datetime
 
 # 로그인 및 권한 체크
-if not st.session_state.get('logged_in'):
-    st.warning("🔒 먼저 메인 화면에서 로그인해 주세요!")
-    st.stop()
+from portal_data import check_auth_and_render_sidebar
+st.set_page_config(page_title="엘린 단어장 - Laellyn Portal", page_icon="🌻", layout="wide")
+check_auth_and_render_sidebar()
 
 if st.session_state.get('role') not in ['ellyn', 'admin']:
     st.warning("🌻 이 페이지는 엘린이와 아빠만 들어올 수 있는 단어장이에요!")

@@ -4,14 +4,18 @@
     "calendar_url": "https://calendar.google.com/calendar/embed?src=ko.south_korea%23holiday%40group.v.calendar.google.com&ctz=Asia%2FSeoul&mode=WEEK",
     "stickers": 12,
     "reward_goal": 20,
-    "reward_item": "아이브(IVE) 새 앨범 포토카드 세트 또는 소원권 1장 🎁"
+    "reward_item": "아이브(IVE) 새 앨범 포토카드 세트 또는 소원권 1장 🎁",
+    "week_start_date": "2026-10-26",
+    "auto_week_date": false
   },
   "ellyn": {
     "weekly_goal": "이번 주 영어 단어 시험 100점 맞기! 수학 연산 밀리지 않기 🌟",
     "calendar_url": "https://calendar.google.com/calendar/embed?src=ko.south_korea%23holiday%40group.v.calendar.google.com&ctz=Asia%2FSeoul&mode=WEEK",
     "stickers": 15,
     "reward_goal": 20,
-    "reward_item": "주말 맛있는 디저트 & 보드게임 소원권 1장 🍰"
+    "reward_item": "주말 맛있는 디저트 & 보드게임 소원권 1장 🍰",
+    "week_start_date": "2026-10-26",
+    "auto_week_date": false
   },
   "admin": {
     "calendar_url": "https://calendar.google.com/calendar/embed?src=ko.south_korea%23holiday%40group.v.calendar.google.com&ctz=Asia%2FSeoul&mode=WEEK"

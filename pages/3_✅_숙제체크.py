@@ -3,9 +3,9 @@ import pandas as pd
 import os
 import datetime
 
-if not st.session_state.get('logged_in'):
-    st.warning("🔒 먼저 메인 화면에서 로그인해 주세요!")
-    st.stop()
+from portal_data import check_auth_and_render_sidebar
+st.set_page_config(page_title="숙제 체크 - Laellyn Portal", page_icon="✅", layout="wide")
+check_auth_and_render_sidebar()
 
 HW_FILE = "homework.csv"
 
