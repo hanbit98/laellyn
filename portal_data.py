@@ -383,19 +383,20 @@ def render_gsheet_tab_html(xlsx_bytes, tab_name, fallback_title="시간표"):
     time_col_idx = max(1, mon_col_idx - 1)
     date_row_idx = day_row_idx - 1 if day_row_idx > 1 else None
 
-    # 상단 배너 제목 및 주 시작일 추출
+    # 상단 배너 제목 및 주 시작일 추출 (날짜 헤더 행 위쪽에서만 탐색)
     sheet_title = fallback_title
     week_start_str = ""
-    for r in range(1, day_row_idx):
+    upper_limit_row = date_row_idx if date_row_idx else day_row_idx
+    for r in range(1, upper_limit_row):
         for c in range(1, mon_col_idx + 4):
             v = ws.cell(r, c).value
             if v is not None:
                 vs = str(v).strip()
                 if "시간표" in vs:
                     sheet_title = vs
-                elif isinstance(v, (datetime.datetime, datetime.date)):
+                elif isinstance(v, (datetime.datetime, datetime.date)) and not week_start_str:
                     week_start_str = f"{v.month}월 {v.day}일"
-                elif re.search(r'\d+월\s*\d+일', vs) and r < date_row_idx:
+                elif re.search(r'\d+월\s*\d+일', vs) and not week_start_str:
                     week_start_str = vs
 
     # 요일 및 날짜 헤더 추출
@@ -561,12 +562,7 @@ def render_gsheet_tab_html(xlsx_bytes, tab_name, fallback_title="시간표"):
                     <th class="time-col"></th>
     """
     for d_date_str, d_full_str in day_headers:
-        html += f"""
-                    <th class="day-col">
-                        <div class="tt-date-text">{d_date_str}</div>
-                        <div class="tt-day-text">{d_full_str}</div>
-                    </th>
-        """
+        html += f'<th class="day-col"><div class="tt-date-text">{d_date_str}</div><div class="tt-day-text">{d_full_str}</div></th>'
     html += """
                 </tr>
             </thead>
@@ -651,7 +647,8 @@ def render_gsheet_tab_html(xlsx_bytes, tab_name, fallback_title="시간표"):
         </table>
     </div>
     """
-    st.markdown(html, unsafe_allow_html=True)
+    clean_html = "\n".join(line.strip() for line in html.splitlines() if line.strip())
+    st.markdown(clean_html, unsafe_allow_html=True)
     return True
 
 # ---------------------------------------------------------
@@ -811,12 +808,7 @@ def render_local_timetable_html(target_user, cfg, df_tt):
                     <th class="time-col"></th>
     """
     for _, d_date_str, d_full_str in day_headers:
-        html += f"""
-                    <th class="day-col">
-                        <div class="tt-date-text">{d_date_str}</div>
-                        <div class="tt-day-text">{d_full_str}</div>
-                    </th>
-        """
+        html += f'<th class="day-col"><div class="tt-date-text">{d_date_str}</div><div class="tt-day-text">{d_full_str}</div></th>'
     html += """
                 </tr>
             </thead>
@@ -849,7 +841,8 @@ def render_local_timetable_html(target_user, cfg, df_tt):
         </table>
     </div>
     """
-    st.markdown(html, unsafe_allow_html=True)
+    clean_html = "\n".join(line.strip() for line in html.splitlines() if line.strip())
+    st.markdown(clean_html, unsafe_allow_html=True)
 
 def render_timetable_section(target_user, cfg, df_tt, allow_tab_picker=True, key_suffix="main"):
     """
